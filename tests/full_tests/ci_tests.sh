@@ -58,3 +58,10 @@ echo "Test with structured outputs passed"
 #     exit -1
 # fi
 # echo "Test with data parallel size 2 passed"
+
+# DS-V2 FP8 + MOE + dynamic scaling (for use_grouped_topk feature test)
+run_ds_v2_moe_fp8_dynamic_scaling_test() {
+    echo "➡️ Testing INC4AI/DeepSeek-V2-Lite-Chat-Block-wise-FP8-Test-Only + moe + block-wise FP8 + dynamic scaling..."
+    HABANA_VISIBLE_DEVICES=all VLLM_CONTIGUOUS_PA=False VLLM_SKIP_WARMUP=true PT_HPU_LAZY_MODE=1 python -u "${VLLM_GAUDI_PREFIX}/tests/full_tests/generate.py" --model INC4AI/DeepSeek-V2-Lite-Chat-Block-wise-FP8-Test-Only --trust-remote-code
+    echo "✅ Test with INC4AI/DeepSeek-V2-Lite-Chat-Block-wise-FP8-Test-Only + moe + block-wise FP8 + dynamic scaling successful."
+}
